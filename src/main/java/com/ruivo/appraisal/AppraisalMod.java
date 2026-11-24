@@ -30,6 +30,8 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
@@ -62,6 +64,7 @@ public final class AppraisalMod {
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             ClientSetup.init(modBus);
+            container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         }
 
         if (ModList.get().isLoaded("alltheores")) {
