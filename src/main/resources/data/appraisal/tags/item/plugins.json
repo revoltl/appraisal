@@ -1,0 +1,16 @@
+{
+  "values": [
+    "appraisal:blank_plugin",
+    "appraisal:level_plugin",
+    "appraisal:speed_plugin",
+    "appraisal:productivity_plugin",
+    "appraisal:energy_saving_plugin",
+    "appraisal:capacitor_plugin",
+    "appraisal:coolant_plugin",
+    "appraisal:void_plugin",
+    "appraisal:statistics_plugin",
+    "appraisal:integration_plugin",
+    "appraisal:layer_feature_plugin",
+    "appraisal:attention_plugin"
+  ]
+}

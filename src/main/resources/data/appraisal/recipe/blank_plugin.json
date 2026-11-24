@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "ICI",
+    "GAG"
+  ],
+  "key": {
+    "I": { "item": "minecraft:iron_ingot" },
+    "C": { "item": "minecraft:copper_block" },
+    "G": { "item": "minecraft:gold_ingot" },
+    "A": { "item": "minecraft:comparator" }
+  },
+  "result": {
+    "id": "appraisal:blank_plugin",
+    "count": 1
+  }
+}

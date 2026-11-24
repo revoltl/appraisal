@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BA"
+  ],
+  "key": {
+    "A": { "item": "minecraft:netherite_ingot" },
+    "B": { "item": "minecraft:experience_bottle" }
+  },
+  "result": {
+    "id": "appraisal:experience_data_card",
+    "count": 1
+  }
+}

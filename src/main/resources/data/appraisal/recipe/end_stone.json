@@ -1,0 +1,14 @@
+{
+  "type": "appraisal:appraisal",
+  "input": "minecraft:end_stone",
+  "outputs": [
+    { "result": { "type": "block", "id": "minecraft:obsidian" }, "probability": 20 },
+    { "result": { "type": "block", "id": "minecraft:chorus_flower" }, "probability": 10, "min_level": 3 },
+    { "result": { "type": "block", "id": "minecraft:dragon_egg" }, "probability": 1, "min_level": 6 }
+  ],
+  "duration": 20,
+  "energy": 800,
+  "min_level": 2,
+  "integrations": ["alltheores"],
+  "modes": ["direct", "advanced"]
+}

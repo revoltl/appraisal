@@ -1,0 +1,9 @@
+{
+  "type": "appraisal:neutron_guide",
+  "input": { "tag": "appraisal:neutron_guide_inputs" },
+  "results": [
+    { "item": "appraisal:plutonium_titanium_thallium", "weight": 30 },
+    { "item": "appraisal:uranium_titanium_thallium", "weight": 70 }
+  ],
+  "time": 2000
+}

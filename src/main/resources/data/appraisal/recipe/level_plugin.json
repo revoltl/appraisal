@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "AOA",
+    "OBO",
+    "AOA"
+  ],
+  "key": {
+    "A": { "item": "minecraft:ancient_debris" },
+    "O": { "item": "appraisal:insight_orb" },
+    "B": { "item": "appraisal:blank_plugin" }
+  },
+  "result": {
+    "id": "appraisal:level_plugin",
+    "count": 1
+  }
+}

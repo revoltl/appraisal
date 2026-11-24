@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "DSD",
+    "SBS",
+    "DSD"
+  ],
+  "key": {
+    "D": { "item": "minecraft:diamond" },
+    "S": { "item": "minecraft:sugar" },
+    "B": { "item": "appraisal:blank_plugin" }
+  },
+  "result": {
+    "id": "appraisal:speed_plugin",
+    "count": 1
+  }
+}

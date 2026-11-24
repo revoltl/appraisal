@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "appraisal:item/level_plugin",
+    "layer1": "appraisal:item/attention_frame"
+  }
+}

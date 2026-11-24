@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "appraisal:block/decay_generator" },
+    "facing=east": { "model": "appraisal:block/decay_generator", "y": 90 },
+    "facing=south": { "model": "appraisal:block/decay_generator", "y": 180 },
+    "facing=west": { "model": "appraisal:block/decay_generator", "y": 270 }
+  }
+}

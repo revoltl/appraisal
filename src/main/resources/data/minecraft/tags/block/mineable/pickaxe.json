@@ -1,0 +1,8 @@
+{
+  "values": [
+    "appraisal:appraisal_machine",
+    "appraisal:neutron_guide_tower",
+    "appraisal:decay_generator",
+    "appraisal:model_trainer"
+  ]
+}

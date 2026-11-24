@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "appraisal:block/neutron_guide_tower" },
+    "facing=east": { "model": "appraisal:block/neutron_guide_tower", "y": 90 },
+    "facing=south": { "model": "appraisal:block/neutron_guide_tower", "y": 180 },
+    "facing=west": { "model": "appraisal:block/neutron_guide_tower", "y": 270 }
+  }
+}

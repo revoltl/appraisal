@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "MLM",
+    "LBL",
+    "MLM"
+  ],
+  "key": {
+    "M": { "item": "minecraft:moss_block" },
+    "L": { "tag": "minecraft:leaves" },
+    "B": { "item": "appraisal:blank_plugin" }
+  },
+  "result": {
+    "id": "appraisal:energy_saving_plugin",
+    "count": 1
+  }
+}

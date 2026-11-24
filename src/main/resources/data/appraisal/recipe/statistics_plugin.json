@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": { "item": "minecraft:iron_ingot" },
+    "B": { "item": "appraisal:level_plugin" }
+  },
+  "result": {
+    "id": "appraisal:statistics_plugin",
+    "count": 1
+  }
+}

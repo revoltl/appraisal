@@ -1,0 +1,8 @@
+{
+  "values": [
+    "appraisal:statistics_plugin",
+    "appraisal:integration_plugin",
+    "appraisal:layer_feature_plugin",
+    "appraisal:attention_plugin"
+  ]
+}

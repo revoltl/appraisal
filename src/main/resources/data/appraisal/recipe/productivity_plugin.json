@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GFL",
+    "PBD",
+    "GFL"
+  ],
+  "key": {
+    "G": { "item": "minecraft:gunpowder" },
+    "F": { "item": "minecraft:blaze_powder" },
+    "L": { "item": "minecraft:glowstone_dust" },
+    "P": { "item": "minecraft:iron_pickaxe" },
+    "B": { "item": "appraisal:blank_plugin" },
+    "D": { "item": "minecraft:diamond_ore" }
+  },
+  "result": {
+    "id": "appraisal:productivity_plugin",
+    "count": 1
+  }
+}

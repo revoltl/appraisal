@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ABP",
+    "ICI",
+    "GRG"
+  ],
+  "key": {
+    "A": { "tag": "appraisal:appraisal_tools" },
+    "B": { "tag": "appraisal:brushes" },
+    "P": { "tag": "minecraft:pickaxes" },
+    "I": { "item": "minecraft:iron_ingot" },
+    "C": { "item": "appraisal:blank_plugin" },
+    "G": { "item": "minecraft:copper_ingot" },
+    "R": { "item": "minecraft:redstone_block" }
+  },
+  "result": {
+    "id": "appraisal:appraisal_machine",
+    "count": 1
+  }
+}

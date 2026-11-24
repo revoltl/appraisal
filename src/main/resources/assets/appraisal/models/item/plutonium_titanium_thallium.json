@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "appraisal:item/plutonium_titanium_thallium"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "OCO",
+    "CBC",
+    "OCO"
+  ],
+  "key": {
+    "O": { "item": "minecraft:obsidian" },
+    "C": { "item": "minecraft:crying_obsidian" },
+    "B": { "item": "appraisal:blank_plugin" }
+  },
+  "result": {
+    "id": "appraisal:void_plugin",
+    "count": 1
+  }
+}

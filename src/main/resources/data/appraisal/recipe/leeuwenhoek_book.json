@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": { "item": "appraisal:insight_orb" },
+  "base": { "item": "minecraft:book" },
+  "addition": { "item": "minecraft:netherite_ingot" },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "appraisal:leeuwenhoek": 1
+      }
+    }
+  }
+}

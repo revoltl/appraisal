@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "appraisal:item/amethyst_magnifying_glass"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "appraisal:appraisal",
+  "input": "#appraisal:hosts/netherrack",
+  "outputs": [
+    { "result": { "type": "block", "id": "minecraft:magma_block" }, "probability": 50 },
+    { "result": { "type": "block", "id": "minecraft:glowstone" }, "probability": 50 },
+    { "result": { "type": "block", "id": "minecraft:nether_quartz_ore" }, "probability": 40, "min_level": 2 },
+    { "result": { "type": "block", "id": "minecraft:nether_gold_ore" }, "probability": 40, "min_level": 2 },
+    { "result": { "type": "block", "id": "minecraft:ancient_debris" }, "probability": 8, "min_level": 5 },
+    { "result": { "type": "item", "id": "minecraft:nether_star" }, "probability": 8, "min_level": 6 }
+  ],
+  "duration": 20,
+  "energy": 800,
+  "min_level": 1,
+  "integrations": ["alltheores"],
+  "modes": ["direct", "advanced"]
+}

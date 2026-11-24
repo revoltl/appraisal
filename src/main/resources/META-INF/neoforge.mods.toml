@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "GPL-3.0-only"
+
+[[mods]]
+modId = "appraisal"
+version = "0.1.0"
+displayName = "Appraisal"
+authors = "Ruivo"
+logoFile = "logo.png"
+description = '''Appraise blocks in the world with a magnifying glass and turn ordinary stone into useful materials.
+
+不小心被NeoForge送到方块异世界，逐步掌握名为【鉴定】的技能，最终成为世界最强！
+这是个通过鉴定把石头变成矿的模组，大概是翻版的无中生有，也许能用在空岛整合包里吧~'''
+
+[[dependencies.appraisal]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.250,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.appraisal]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " BA",
+    " MB",
+    "R  "
+  ],
+  "key": {
+    "B": { "item": "minecraft:blaze_powder" },
+    "A": { "item": "minecraft:amethyst_shard" },
+    "M": { "item": "appraisal:magnifying_glass" },
+    "R": { "item": "minecraft:breeze_rod" }
+  },
+  "result": {
+    "id": "appraisal:amethyst_magnifying_glass",
+    "count": 1
+  }
+}

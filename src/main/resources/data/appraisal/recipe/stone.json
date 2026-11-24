@@ -1,0 +1,20 @@
+{
+  "type": "appraisal:appraisal",
+  "input": "#appraisal:hosts/stone",
+  "outputs": [
+    { "result": { "type": "block", "id": "minecraft:cobblestone" }, "probability": 100 },
+    { "result": { "type": "block", "id": "minecraft:coal_ore" }, "probability": 22 },
+    { "result": { "type": "item", "id": "minecraft:amethyst_shard" }, "probability": 6 },
+    { "result": { "type": "block", "id": "minecraft:copper_ore" }, "probability": 20 },
+    { "result": { "type": "block", "id": "minecraft:iron_ore" }, "probability": 18 },
+    { "result": { "type": "block", "id": "minecraft:gold_ore" }, "probability": 10, "min_level": 1 },
+    { "result": { "type": "block", "id": "minecraft:redstone_ore" }, "probability": 10, "min_level": 1 },
+    { "result": { "type": "block", "id": "minecraft:lapis_ore" }, "probability": 10, "min_level": 1 },
+    { "result": { "type": "block", "id": "minecraft:diamond_ore" }, "probability": 3, "min_level": 1 },
+    { "result": { "type": "block", "id": "minecraft:emerald_ore" }, "probability": 3, "min_level": 1 }
+  ],
+  "duration": 20,
+  "energy": 800,
+  "integrations": ["mekanism", "alltheores"],
+  "modes": ["direct", "advanced"]
+}

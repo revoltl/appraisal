@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "appraisal:block/model_trainer", "y": 180 },
+    "facing=east": { "model": "appraisal:block/model_trainer", "y": 270 },
+    "facing=south": { "model": "appraisal:block/model_trainer" },
+    "facing=west": { "model": "appraisal:block/model_trainer", "y": 90 }
+  }
+}

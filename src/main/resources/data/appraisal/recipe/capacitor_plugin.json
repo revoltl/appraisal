@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "LRL",
+    "CBC",
+    "LRL"
+  ],
+  "key": {
+    "L": { "item": "minecraft:lightning_rod" },
+    "R": { "item": "minecraft:repeater" },
+    "C": { "item": "minecraft:comparator" },
+    "B": { "item": "appraisal:blank_plugin" }
+  },
+  "result": {
+    "id": "appraisal:capacitor_plugin",
+    "count": 1
+  }
+}

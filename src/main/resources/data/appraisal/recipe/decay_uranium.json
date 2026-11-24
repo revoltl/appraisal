@@ -1,0 +1,6 @@
+{
+  "type": "appraisal:decay_generation",
+  "input": { "item": "appraisal:uranium_titanium_thallium" },
+  "output": { "id": "minecraft:poisonous_potato", "count": 1 },
+  "time": 1200
+}

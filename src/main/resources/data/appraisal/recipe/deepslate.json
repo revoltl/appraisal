@@ -1,0 +1,21 @@
+{
+  "type": "appraisal:appraisal",
+  "input": "#appraisal:hosts/deepslate",
+  "outputs": [
+    { "result": { "type": "block", "id": "minecraft:cobbled_deepslate" }, "probability": 100 },
+    { "result": { "type": "block", "id": "minecraft:deepslate_coal_ore" }, "probability": 44 },
+    { "result": { "type": "item", "id": "minecraft:amethyst_shard" }, "probability": 12 },
+    { "result": { "type": "block", "id": "minecraft:deepslate_copper_ore" }, "probability": 40, "min_level": 2 },
+    { "result": { "type": "block", "id": "minecraft:deepslate_iron_ore" }, "probability": 36, "min_level": 2 },
+    { "result": { "type": "block", "id": "minecraft:deepslate_gold_ore" }, "probability": 20, "min_level": 3 },
+    { "result": { "type": "block", "id": "minecraft:deepslate_redstone_ore" }, "probability": 20, "min_level": 3 },
+    { "result": { "type": "block", "id": "minecraft:deepslate_lapis_ore" }, "probability": 20, "min_level": 3 },
+    { "result": { "type": "block", "id": "minecraft:deepslate_diamond_ore" }, "probability": 6, "min_level": 4 },
+    { "result": { "type": "block", "id": "minecraft:deepslate_emerald_ore" }, "probability": 6, "min_level": 4 }
+  ],
+  "duration": 20,
+  "energy": 800,
+  "min_level": 1,
+  "integrations": ["mekanism", "alltheores"],
+  "modes": ["direct", "advanced"]
+}
