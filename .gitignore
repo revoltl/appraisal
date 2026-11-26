@@ -12,7 +12,8 @@ bin/
 *.log
 src/generated/
 src/test/
-libs/
+libs/*
+!libs/README.md
 examples/kubejs/
 art/
 tools/
