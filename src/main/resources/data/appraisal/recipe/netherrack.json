@@ -12,6 +12,6 @@
   "duration": 20,
   "energy": 800,
   "min_level": 1,
-  "integrations": ["alltheores"],
+  "integrations": ["alltheores", "rftoolsbase", "mysticalagriculture", "irons_spellbooks"],
   "modes": ["direct", "advanced"]
 }

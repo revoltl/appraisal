@@ -15,6 +15,6 @@
   ],
   "duration": 20,
   "energy": 800,
-  "integrations": ["mekanism", "alltheores"],
+  "integrations": ["mekanism", "alltheores", "create", "actuallyadditions", "ae2", "immersiveengineering", "powah", "modern_industrialization", "rftoolsbase", "mysticalagriculture", "irons_spellbooks"],
   "modes": ["direct", "advanced"]
 }

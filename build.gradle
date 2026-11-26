@@ -4,10 +4,17 @@ plugins {
 }
 
 group = 'com.ruivo'
-version = '0.1.1'
+version = "0.1.2"
 
 base {
     archivesName = 'appraisal-1.21.1'
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand "version": project.version
+    }
 }
 
 java {

@@ -7,8 +7,10 @@ import com.ruivo.appraisal.recipe.AppraisalRecipe;
 import com.ruivo.appraisal.recipe.BlockSelector;
 import com.ruivo.appraisal.registry.ModItems;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
@@ -105,32 +107,27 @@ public final class AppraisalRecipeCategory implements IRecipeCategory<AppraisalR
             int y = OUTPUT_Y + (index / COLUMNS) * SLOT;
             builder.addOutputSlot(x, y)
                     .addItemStack(new ItemStack(output.result().item().value()))
-                    .addRichTooltipCallback((slotView, tooltip) -> {
-                        tooltip.add(Component.translatable("jei.appraisal.output_min_level",
-                                        formatNumber(output.minLevel()))
-                                .withStyle(ChatFormatting.GRAY));
-                        tooltip.add(Component.translatable("jei.appraisal.weight",
-                                        formatNumber(output.probability()))
-                                .withStyle(ChatFormatting.GOLD));
-                        if (recipe.allows(AppraisalMode.DIRECT) && total > 0.0D) {
-                            double percent = output.probability() / total * 100.0D;
-                            tooltip.add(Component.translatable("jei.appraisal.direct",
-                                    String.format(Locale.ROOT, "%.1f", percent)).withStyle(ChatFormatting.GRAY));
-                        }
-                        if (recipe.allows(AppraisalMode.ADVANCED)) {
-                            tooltip.add(Component.translatable("jei.appraisal.advanced",
-                                    String.format(Locale.ROOT, "%.1f", output.probability())).withStyle(ChatFormatting.GRAY));
-                        }
-                    });
+                    .addRichTooltipCallback((slotView, tooltip) ->
+                            appendOutputTooltip(tooltip, recipe, output, total));
         }
 
         if (outputs.size() > CAPACITY - 1) {
-            int slotIndex = CAPACITY - 1;
-            int x = OUTPUT_X + (slotIndex % COLUMNS) * SLOT;
-            int y = OUTPUT_Y + (slotIndex / COLUMNS) * SLOT;
-            AppraisalOutput first = outputs.get(slotIndex);
+            int overflowStart = CAPACITY - 1;
+            int x = OUTPUT_X + (overflowStart % COLUMNS) * SLOT;
+            int y = OUTPUT_Y + (overflowStart / COLUMNS) * SLOT;
+            List<ItemStack> overflow = new ArrayList<>();
+            for (int index = overflowStart; index < outputs.size(); index++) {
+                overflow.add(new ItemStack(outputs.get(index).result().item().value()));
+            }
             builder.addOutputSlot(x, y)
-                    .addItemStack(new ItemStack(first.result().item().value()));
+                    .addItemStacks(overflow)
+                    .addRichTooltipCallback((slotView, tooltip) ->
+                            slotView.getDisplayedItemStack().ifPresent(stack -> {
+                                AppraisalOutput current = findOutput(outputs, stack.getItem());
+                                if (current != null) {
+                                    appendOutputTooltip(tooltip, recipe, current, total);
+                                }
+                            }));
         }
     }
 
@@ -141,7 +138,7 @@ public final class AppraisalRecipeCategory implements IRecipeCategory<AppraisalR
         graphics.pose().pushPose();
         graphics.pose().translate(0.0F, 0.0F, 300.0F);
 
-        drawLevelFrames(graphics, recipe);
+        drawLevelFrames(graphics, recipe, slotsView);
 
         Font font = Minecraft.getInstance().font;
         int color = 0x404040;
@@ -158,79 +155,39 @@ public final class AppraisalRecipeCategory implements IRecipeCategory<AppraisalR
                         String.format(Locale.ROOT, "%.1f", perTick)),
                 INFO_X, INFO_Y + 33, color, false);
 
-        drawRotatingSlot(graphics, recipe);
-
         graphics.pose().popPose();
-
-        drawRotatingTooltip(graphics, recipe, mouseX, mouseY);
     }
 
-    private void drawRotatingTooltip(GuiGraphics graphics, AppraisalRecipe recipe, double mouseX, double mouseY) {
-        int overflowStart = CAPACITY - 1;
-        int total = recipe.outputs().size();
-        if (total <= overflowStart) {
-            return;
+    private static AppraisalOutput findOutput(List<AppraisalOutput> outputs, Item item) {
+        for (AppraisalOutput output : outputs) {
+            if (output.result().item().value() == item) {
+                return output;
+            }
         }
-        int x = OUTPUT_X + (overflowStart % COLUMNS) * SLOT;
-        int y = OUTPUT_Y + (overflowStart / COLUMNS) * SLOT;
-        if (mouseX < x || mouseX >= x + SLOT || mouseY < y || mouseY >= y + SLOT) {
-            return;
-        }
+        return null;
+    }
 
-        long ticks = Minecraft.getInstance().level != null
-                ? Minecraft.getInstance().level.getGameTime()
-                : 0L;
-        int cycle = (int) ((ticks / 20L) % (total - overflowStart));
-        AppraisalOutput output = recipe.outputs().get(overflowStart + cycle);
-        double totalWeight = recipe.totalWeight();
-
-        List<Component> lines = new ArrayList<>();
-        lines.add(output.result().item().value().getDescription().copy()
-                .withStyle(ChatFormatting.WHITE));
-        lines.add(Component.translatable("jei.appraisal.output_min_level",
+    private static void appendOutputTooltip(ITooltipBuilder tooltip, AppraisalRecipe recipe,
+                                            AppraisalOutput output, double totalWeight) {
+        tooltip.add(Component.translatable("jei.appraisal.output_min_level",
                         formatNumber(output.minLevel()))
                 .withStyle(ChatFormatting.GRAY));
-        lines.add(Component.translatable("jei.appraisal.weight",
+        tooltip.add(Component.translatable("jei.appraisal.weight",
                         formatNumber(output.probability()))
                 .withStyle(ChatFormatting.GOLD));
         if (recipe.allows(AppraisalMode.DIRECT) && totalWeight > 0.0D) {
             double percent = output.probability() / totalWeight * 100.0D;
-            lines.add(Component.translatable("jei.appraisal.direct",
-                            String.format(Locale.ROOT, "%.1f", percent))
-                    .withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("jei.appraisal.direct",
+                    String.format(Locale.ROOT, "%.1f", percent)).withStyle(ChatFormatting.GRAY));
         }
         if (recipe.allows(AppraisalMode.ADVANCED)) {
-            lines.add(Component.translatable("jei.appraisal.advanced",
-                            String.format(Locale.ROOT, "%.1f", output.probability()))
-                    .withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("jei.appraisal.advanced",
+                    String.format(Locale.ROOT, "%.1f", output.probability())).withStyle(ChatFormatting.GRAY));
         }
-        lines.add(Component.translatable("jei.appraisal.rotating")
-                .withStyle(ChatFormatting.DARK_GRAY));
-
-        Font font = Minecraft.getInstance().font;
-        graphics.renderComponentTooltip(font, lines, (int) mouseX, (int) mouseY);
     }
 
-    private void drawRotatingSlot(GuiGraphics graphics, AppraisalRecipe recipe) {
-        int overflowStart = CAPACITY - 1;
-        int total = recipe.outputs().size();
-        if (total <= overflowStart) {
-            return;
-        }
-        long ticks = Minecraft.getInstance().level != null
-                ? Minecraft.getInstance().level.getGameTime()
-                : 0L;
-        int frame = (int) (ticks % LEVEL_FRAMES);
-        int cycle = (int) ((ticks / 20L) % (total - overflowStart));
-        int index = overflowStart + cycle;
-        AppraisalOutput output = recipe.outputs().get(index);
-        int x = OUTPUT_X + (overflowStart % COLUMNS) * SLOT;
-        int y = OUTPUT_Y + (overflowStart / COLUMNS) * SLOT;
-        graphics.renderItem(new ItemStack(output.result().item().value()), x, y);
-        drawFrame(graphics, x, y, frame, output.minLevel());
-    }
-
-    private void drawLevelFrames(GuiGraphics graphics, AppraisalRecipe recipe) {
+    private void drawLevelFrames(GuiGraphics graphics, AppraisalRecipe recipe,
+                                 IRecipeSlotsView slotsView) {
         long ticks = Minecraft.getInstance().level != null
                 ? Minecraft.getInstance().level.getGameTime()
                 : 0L;
@@ -243,6 +200,22 @@ public final class AppraisalRecipeCategory implements IRecipeCategory<AppraisalR
             int x = OUTPUT_X + (index % COLUMNS) * SLOT;
             int y = OUTPUT_Y + (index / COLUMNS) * SLOT;
             drawFrame(graphics, x, y, frame, recipe.outputs().get(index).minLevel());
+        }
+
+        if (recipe.outputs().size() > CAPACITY - 1) {
+            List<IRecipeSlotView> slotViews = slotsView.getSlotViews();
+            if (slotViews.isEmpty()) {
+                return;
+            }
+            IRecipeSlotView rotating = slotViews.get(slotViews.size() - 1);
+            rotating.getDisplayedItemStack().ifPresent(stack -> {
+                AppraisalOutput output = findOutput(recipe.outputs(), stack.getItem());
+                if (output != null) {
+                    int x = OUTPUT_X + ((CAPACITY - 1) % COLUMNS) * SLOT;
+                    int y = OUTPUT_Y + ((CAPACITY - 1) / COLUMNS) * SLOT;
+                    drawFrame(graphics, x, y, frame, output.minLevel());
+                }
+            });
         }
     }
 

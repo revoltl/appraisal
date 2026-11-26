@@ -5,9 +5,18 @@ import com.ruivo.appraisal.brewing.MendeleevBrewing;
 import com.ruivo.appraisal.client.ClientSetup;
 import com.ruivo.appraisal.command.AppraisalCommands;
 import com.ruivo.appraisal.compat.Integrations;
+import com.ruivo.appraisal.compat.actuallyadditions.ActuallyAdditionsIntegration;
+import com.ruivo.appraisal.compat.ae2.AppliedEnergisticsIntegration;
 import com.ruivo.appraisal.compat.alltheores.AllTheOresIntegration;
+import com.ruivo.appraisal.compat.create.CreateIntegration;
 import com.ruivo.appraisal.compat.ftbultimine.FTBUltimineCompat;
+import com.ruivo.appraisal.compat.immersiveengineering.ImmersiveEngineeringIntegration;
+import com.ruivo.appraisal.compat.ironsspellbooks.IronsSpellbooksIntegration;
 import com.ruivo.appraisal.compat.mekanism.MekanismIntegration;
+import com.ruivo.appraisal.compat.modernindustrialization.ModernIndustrializationIntegration;
+import com.ruivo.appraisal.compat.mysticalagriculture.MysticalAgricultureIntegration;
+import com.ruivo.appraisal.compat.powah.PowahIntegration;
+import com.ruivo.appraisal.compat.rftools.RFToolsIntegration;
 import com.ruivo.appraisal.machine.AppraisalMachineBlockEntity;
 import com.ruivo.appraisal.machine.DecayGeneratorBlockEntity;
 import com.ruivo.appraisal.machine.ModelTrainerBlockEntity;
@@ -73,6 +82,33 @@ public final class AppraisalMod {
         if (ModList.get().isLoaded("mekanism")) {
             // 两个模组的同种矿石共享 c:ores 标签，后注册的一方会被标签去重跳过。
             Integrations.register(new MekanismIntegration());
+        }
+        if (ModList.get().isLoaded("create")) {
+            Integrations.register(new CreateIntegration());
+        }
+        if (ModList.get().isLoaded("actuallyadditions")) {
+            Integrations.register(new ActuallyAdditionsIntegration());
+        }
+        if (ModList.get().isLoaded("ae2")) {
+            Integrations.register(new AppliedEnergisticsIntegration());
+        }
+        if (ModList.get().isLoaded("immersiveengineering")) {
+            Integrations.register(new ImmersiveEngineeringIntegration());
+        }
+        if (ModList.get().isLoaded("powah")) {
+            Integrations.register(new PowahIntegration());
+        }
+        if (ModList.get().isLoaded("modern_industrialization")) {
+            Integrations.register(new ModernIndustrializationIntegration());
+        }
+        if (ModList.get().isLoaded("rftoolsbase")) {
+            Integrations.register(new RFToolsIntegration());
+        }
+        if (ModList.get().isLoaded("mysticalagriculture")) {
+            Integrations.register(new MysticalAgricultureIntegration());
+        }
+        if (ModList.get().isLoaded("irons_spellbooks")) {
+            Integrations.register(new IronsSpellbooksIntegration());
         }
 
         FTBUltimineCompat.init();

@@ -1,5 +1,6 @@
 package com.ruivo.appraisal.compat;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -52,7 +53,7 @@ public final class OreDedup {
     }
 
     private static Set<TagKey<Block>> oreTags(Block block) {
-        return block.builtInRegistryHolder().tags()
+        return BuiltInRegistries.BLOCK.wrapAsHolder(block).tags()
                 .filter(tag -> tag.location().getPath().startsWith("ores/"))
                 .collect(Collectors.toSet());
     }

@@ -9,7 +9,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 /**
  * 鉴定等级的计算。有效等级由玩家基础等级、手持工具等级、列文虎克附魔与门捷列夫之洞察
@@ -34,7 +33,7 @@ public final class AppraisalLevels {
         if (tool.getItem() instanceof AppraisalTool) {
             Holder<Enchantment> enchantment = player.level().registryAccess()
                     .holderOrThrow(ModEnchantments.LEEUWENHOEK);
-            enchantLevel = EnchantmentHelper.getItemEnchantmentLevel(enchantment, tool);
+            enchantLevel = tool.getEnchantmentLevel(enchantment);
         }
 
         int effectLevel = 0;

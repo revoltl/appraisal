@@ -12,7 +12,7 @@ bin/
 *.log
 src/generated/
 src/test/
-libs/*.jar
+libs/
 examples/kubejs/
 art/
 tools/

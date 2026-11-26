@@ -9,6 +9,6 @@
   "duration": 20,
   "energy": 800,
   "min_level": 2,
-  "integrations": ["alltheores"],
+  "integrations": ["alltheores", "rftoolsbase"],
   "modes": ["direct", "advanced"]
 }
