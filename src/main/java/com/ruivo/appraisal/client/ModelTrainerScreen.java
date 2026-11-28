@@ -264,7 +264,12 @@ public class ModelTrainerScreen extends AbstractContainerScreen<ModelTrainerMenu
             case COOLANT_CONSUMPTION -> stats.coolantConsumption() == 0.0D
                     ? null
                     : percent(stats.coolantFraction(), false);
-            case GENERATOR_EFFICIENCY -> null;
+            case GENERATOR_EFFICIENCY -> stats.generatorEfficiency() == 0.0D
+                    ? null
+                    : percent(stats.generatorEfficiency(), true);
+            case SOLAR_GENERATION -> stats.solarGeneration() == 0.0D
+                    ? null
+                    : String.format(Locale.ROOT, "%+.0f FE/t", stats.solarGeneration());
             case VOID -> stats.voidEnabled()
                     ? Component.translatable("gui.appraisal.plugin.void_on").getString()
                     : null;
@@ -294,7 +299,10 @@ public class ModelTrainerScreen extends AbstractContainerScreen<ModelTrainerMenu
                     ? PluginTooltip.GOOD_COLOR : PluginTooltip.BAD_COLOR;
             case COOLANT_CONSUMPTION -> stats.coolantConsumption() > 0
                     ? PluginTooltip.BAD_COLOR : PluginTooltip.GOOD_COLOR;
-            case GENERATOR_EFFICIENCY -> PluginTooltip.GOOD_COLOR;
+            case GENERATOR_EFFICIENCY -> stats.generatorEfficiency() > 0
+                    ? PluginTooltip.GOOD_COLOR : PluginTooltip.BAD_COLOR;
+            case SOLAR_GENERATION -> stats.solarGeneration() > 0
+                    ? PluginTooltip.GOOD_COLOR : PluginTooltip.BAD_COLOR;
             case VOID -> PluginTooltip.GOOD_COLOR;
         };
     }

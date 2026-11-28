@@ -2,6 +2,7 @@ package com.ruivo.appraisal.machine;
 
 import com.mojang.serialization.MapCodec;
 import com.ruivo.appraisal.plugin.PluginItem;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import com.ruivo.appraisal.registry.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -117,10 +118,21 @@ public class DecayGeneratorBlock extends BaseEntityBlock {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
+        int slot = DecayGeneratorBlockEntity.PLUGIN_START + cornerIndex(localX, localZ);
+
+        if (stack.getCapability(Capabilities.EnergyStorage.ITEM) != null) {
+            if (!generator.getInventory().getStackInSlot(slot).isEmpty()) {
+                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            }
+            generator.getInventory().setStackInSlot(slot, stack.copyWithCount(1));
+            stack.shrink(1);
+            level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 0.5F, 1.0F);
+            return ItemInteractionResult.CONSUME;
+        }
+
         if (!(stack.getItem() instanceof PluginItem plugin) || !stack.is(ModTags.Items.PLUGINS)) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
-        int slot = DecayGeneratorBlockEntity.PLUGIN_START + cornerIndex(localX, localZ);
         if (!generator.getInventory().getStackInSlot(slot).isEmpty()) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }

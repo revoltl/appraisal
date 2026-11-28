@@ -20,6 +20,10 @@ public final class ModTags {
                 Registries.ITEM,
                 ResourceLocation.fromNamespaceAndPath(AppraisalMod.MOD_ID, "plugins"));
 
+        public static final TagKey<Item> APPRAISAL_TOOLS = TagKey.create(
+                Registries.ITEM,
+                ResourceLocation.fromNamespaceAndPath(AppraisalMod.MOD_ID, "appraisal_tools"));
+
         public static final TagKey<Item> NEUTRON_GUIDE_INPUTS = TagKey.create(
                 Registries.ITEM,
                 ResourceLocation.fromNamespaceAndPath(AppraisalMod.MOD_ID, "neutron_guide_inputs"));

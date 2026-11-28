@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.client.model.data.ModelData;
 
@@ -21,6 +21,6 @@ public final class MachineModels {
                               MultiBufferSource buffers, int packedLight, int packedOverlay) {
         Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
                 blockEntity.getBlockState(), pose, buffers, packedLight, packedOverlay,
-                ModelData.EMPTY, RenderType.entityCutoutNoCull(TextureAtlas.LOCATION_BLOCKS));
+                ModelData.EMPTY, RenderType.entityCutoutNoCull(InventoryMenu.BLOCK_ATLAS));
     }
 }

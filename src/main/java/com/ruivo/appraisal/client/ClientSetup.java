@@ -45,5 +45,6 @@ public final class ClientSetup {
         event.register(ModMenus.APPRAISAL_MACHINE.get(), AppraisalMachineScreen::new);
         event.register(ModMenus.BLOCK_DATA_CARD.get(), BlockDataCardScreen::new);
         event.register(ModMenus.MODEL_TRAINER.get(), ModelTrainerScreen::new);
+        event.register(ModMenus.TOOL_PLUGINS.get(), ToolPluginScreen::new);
     }
 }

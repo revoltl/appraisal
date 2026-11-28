@@ -10,6 +10,26 @@ public interface AppraisalTool {
 
     int appraisalLevel(ItemStack stack);
 
+    default int effectiveAppraisalLevel(ItemStack stack) {
+        return appraisalLevel(stack);
+    }
+
+    default int pluginLevelBonus(ItemStack stack) {
+        return 0;
+    }
+
+    default boolean hasEnergyDisplay(ItemStack stack) {
+        return false;
+    }
+
+    default int energyStored(ItemStack stack) {
+        return 0;
+    }
+
+    default int energyCapacity(ItemStack stack) {
+        return 0;
+    }
+
     default boolean supportsRightClickAppraisal() {
         return true;
     }

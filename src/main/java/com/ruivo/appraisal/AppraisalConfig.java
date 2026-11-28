@@ -6,6 +6,7 @@ public final class AppraisalConfig {
 
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.IntValue DURABILITY_COST;
+    public static final ModConfigSpec.IntValue SCANNER_CAPACITY;
     public static final ModConfigSpec.BooleanValue ALLOW_BLOCK_ENTITIES;
     public static final ModConfigSpec.IntValue MACHINE_LEVEL;
     public static final ModConfigSpec.IntValue MACHINE_ENERGY_CAPACITY;
@@ -25,6 +26,11 @@ public final class AppraisalConfig {
                 .comment("每次成功鉴定消耗的放大镜耐久点数")
                 .translation("appraisal.configuration.durabilityCost")
                 .defineInRange("durabilityCost", 1, 0, 64);
+
+        SCANNER_CAPACITY = builder
+                .comment("电动扫描仪的基础能量容量，单位 FE。电容插件按倍率放大这个值")
+                .translation("appraisal.configuration.scannerCapacity")
+                .defineInRange("scannerCapacity", 100_000, 1_000, 10_000_000);
 
         ALLOW_BLOCK_ENTITIES = builder
                 .comment("是否允许鉴定带方块实体的方块，例如箱子与熔炉")
@@ -74,12 +80,12 @@ public final class AppraisalConfig {
         DECAY_GENERATOR_TRANSFER = builder
                 .comment("衰变发电机的基础能量传输速度，单位 FE/t。电容插件按倍率放大这个值")
                 .translation("appraisal.configuration.decayGeneratorTransfer")
-                .defineInRange("decayGeneratorTransfer", 400, 10, 1_000_000);
+                .defineInRange("decayGeneratorTransfer", 256, 10, 1_000_000);
 
         DECAY_GENERATOR_GENERATION = builder
                 .comment("衰变发电机的基础发电量，单位 FE/t。产能插件按倍率放大这个值")
                 .translation("appraisal.configuration.decayGeneratorGeneration")
-                .defineInRange("decayGeneratorGeneration", 200, 0, 1_000_000);
+                .defineInRange("decayGeneratorGeneration", 128, 0, 1_000_000);
 
         SPEC = builder.build();
     }

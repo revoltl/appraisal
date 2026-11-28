@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "appraisal:capacitor_plugin"
+  },
+  "base": {
+    "item": "appraisal:amethyst_magnifying_glass"
+  },
+  "addition": {
+    "item": "appraisal:level_plugin"
+  },
+  "result": {
+    "id": "appraisal:electric_scanner",
+    "count": 1
+  }
+}

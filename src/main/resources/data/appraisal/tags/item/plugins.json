@@ -6,6 +6,8 @@
     "appraisal:productivity_plugin",
     "appraisal:energy_saving_plugin",
     "appraisal:capacitor_plugin",
+    "appraisal:photovoltaic_plugin",
+    "appraisal:efficiency_plugin",
     "appraisal:coolant_plugin",
     "appraisal:void_plugin",
     "appraisal:statistics_plugin",

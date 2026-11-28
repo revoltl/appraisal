@@ -20,11 +20,13 @@ public enum PluginStat {
     VOID("void", Format.BOOLEAN, true, Group.RIGHT),
     CAPACITY("capacity", Format.PERCENT, true, Group.LEFT),
     TRANSFER("transfer", Format.PERCENT, true, Group.LEFT),
-    GENERATOR_EFFICIENCY("generator_efficiency", Format.PERCENT, true, Group.LEFT);
+    GENERATOR_EFFICIENCY("generator_efficiency", Format.PERCENT, true, Group.LEFT),
+    SOLAR_GENERATION("solar_generation", Format.FLAT, true, Group.LEFT);
 
     public enum Format {
         LEVEL,
         PERCENT,
+        FLAT,
         BOOLEAN
     }
 

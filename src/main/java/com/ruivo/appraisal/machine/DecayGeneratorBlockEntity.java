@@ -120,6 +120,9 @@ public class DecayGeneratorBlockEntity extends BlockEntity {
         if (level.isClientSide) {
             return;
         }
+        if (level.hasNeighborSignal(pos)) {
+            return;
+        }
 
         PluginStats stats = pluginStats();
         int targetCapacity = (int) Math.round(
@@ -131,12 +134,16 @@ public class DecayGeneratorBlockEntity extends BlockEntity {
                 AppraisalConfig.DECAY_GENERATOR_TRANSFER.get() * stats.transferMultiplier());
         energy.setTransfer(transfer);
 
+        int solar = SolarGeneration.fePerTick(stats, level, pos);
+        energy.addEnergy(solar);
+
         DecayGenerationRecipe recipe = findRecipe();
         if (recipe != null) {
             progress++;
-            energy.addEnergy((int) Math.round(
+            int base = (int) Math.round(
                     AppraisalConfig.DECAY_GENERATOR_GENERATION.get()
-                            * stats.generatorEfficiencyMultiplier()));
+                            * stats.generatorEfficiencyMultiplier());
+            energy.addEnergy(base);
             if (progress >= recipe.time()) {
                 inventory.setStackInSlot(SLOT_CENTER, recipe.output().copy());
                 progress = 0;
@@ -147,7 +154,35 @@ public class DecayGeneratorBlockEntity extends BlockEntity {
             setChanged();
         }
 
+        chargeTools(transfer);
         pushEnergy(level, pos, transfer);
+    }
+
+    private void chargeTools(int budget) {
+        for (int index = PLUGIN_START; index < SLOT_COUNT; index++) {
+            if (budget <= 0 || energy.getEnergyStored() <= 0) {
+                return;
+            }
+            ItemStack stack = inventory.getStackInSlot(index);
+            if (stack.isEmpty()) {
+                continue;
+            }
+            IEnergyStorage tool = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            if (tool == null || !tool.canReceive()) {
+                continue;
+            }
+            int available = Math.min(budget, energy.getEnergyStored());
+            int accepted = tool.receiveEnergy(available, true);
+            if (accepted <= 0) {
+                continue;
+            }
+            int extracted = energy.extractEnergy(accepted, false);
+            if (extracted > 0) {
+                tool.receiveEnergy(extracted, false);
+                inventory.setStackInSlot(index, stack);
+                budget -= extracted;
+            }
+        }
     }
 
     private void pushEnergy(Level level, BlockPos pos, int budget) {

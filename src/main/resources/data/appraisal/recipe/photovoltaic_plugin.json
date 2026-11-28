@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GLG",
+    "LBL",
+    "GLG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "L": {
+      "item": "minecraft:lapis_block"
+    },
+    "B": {
+      "item": "appraisal:blank_plugin"
+    }
+  },
+  "result": {
+    "id": "appraisal:photovoltaic_plugin",
+    "count": 1
+  }
+}

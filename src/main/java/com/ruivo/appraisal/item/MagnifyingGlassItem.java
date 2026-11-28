@@ -6,6 +6,8 @@ import com.ruivo.appraisal.appraisal.AppraisalEngine;
 import com.ruivo.appraisal.appraisal.AppraisalLevels;
 import com.ruivo.appraisal.appraisal.AppraisalMode;
 import com.ruivo.appraisal.appraisal.OutputResolver;
+import com.ruivo.appraisal.machine.ToolPluginMenu;
+import com.ruivo.appraisal.plugin.tool.PluginConfigurableTool;
 import com.ruivo.appraisal.recipe.AppraisalRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,7 +15,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -71,6 +76,12 @@ public class MagnifyingGlassItem extends Item implements AppraisalTool {
             return InteractionResult.SUCCESS;
         }
 
+        if (!canConsume(tool, player, recipe)) {
+            player.displayClientMessage(
+                    Component.translatable("message.appraisal.not_enough_energy"), true);
+            return InteractionResult.PASS;
+        }
+
         int playerLevel = AppraisalLevels.of(player, tool);
         if (recipe.minLevel() > playerLevel) {
             player.displayClientMessage(
@@ -79,17 +90,14 @@ public class MagnifyingGlassItem extends Item implements AppraisalTool {
         }
 
         ServerLevel serverLevel = (ServerLevel) level;
-        List<AppraisalDrop> drops = AppraisalEngine.roll(recipe, AppraisalMode.DIRECT, playerLevel, serverLevel.random);
+        List<AppraisalDrop> drops = roll(tool, recipe, playerLevel, serverLevel);
         if (drops.isEmpty()) {
             return InteractionResult.PASS;
         }
 
         OutputResolver.applyToWorld(serverLevel, pos, drops);
 
-        int cost = AppraisalConfig.DURABILITY_COST.get();
-        if (cost > 0) {
-            tool.hurtAndBreak(cost, player, EquipmentSlot.MAINHAND);
-        }
+        consume(tool, player, recipe);
 
         serverLevel.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.8F, 1.4F);
         serverLevel.sendParticles(
@@ -99,6 +107,45 @@ public class MagnifyingGlassItem extends Item implements AppraisalTool {
         );
 
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        if (openPluginMenu(level, player, hand)) {
+            return InteractionResultHolder.success(player.getItemInHand(hand));
+        }
+        return super.use(level, player, hand);
+    }
+
+    protected boolean openPluginMenu(Level level, Player player, InteractionHand hand) {
+        if (!player.isShiftKeyDown() || hand != InteractionHand.MAIN_HAND) {
+            return false;
+        }
+        ItemStack tool = player.getItemInHand(hand);
+        if (!(tool.getItem() instanceof PluginConfigurableTool)) {
+            return false;
+        }
+        if (!level.isClientSide) {
+            player.openMenu(new SimpleMenuProvider(
+                    (id, inventory, p) -> new ToolPluginMenu(id, inventory),
+                    Component.translatable("gui.appraisal.tool_plugins")));
+        }
+        return true;
+    }
+
+    protected List<AppraisalDrop> roll(ItemStack tool, AppraisalRecipe recipe, int level, ServerLevel serverLevel) {
+        return AppraisalEngine.roll(recipe, AppraisalMode.DIRECT, level, serverLevel.random);
+    }
+
+    protected boolean canConsume(ItemStack stack, Player player, AppraisalRecipe recipe) {
+        return true;
+    }
+
+    protected void consume(ItemStack stack, Player player, AppraisalRecipe recipe) {
+        int cost = AppraisalConfig.DURABILITY_COST.get();
+        if (cost > 0) {
+            stack.hurtAndBreak(cost, player, EquipmentSlot.MAINHAND);
+        }
     }
 
     @Override

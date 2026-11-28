@@ -1,6 +1,7 @@
 package com.ruivo.appraisal.appraisal;
 
 import com.ruivo.appraisal.item.AppraisalTool;
+import com.ruivo.appraisal.plugin.tool.PluginConfigurableTool;
 import com.ruivo.appraisal.registry.ModAttachments;
 import com.ruivo.appraisal.registry.ModEffects;
 import com.ruivo.appraisal.registry.ModEnchantments;
@@ -42,6 +43,11 @@ public final class AppraisalLevels {
             effectLevel = instance.getAmplifier() + 1;
         }
 
-        return base + toolLevel + enchantLevel + effectLevel;
+        int pluginLevel = 0;
+        if (tool.getItem() instanceof PluginConfigurableTool configurable) {
+            pluginLevel = configurable.toolPluginStats(tool, null).general().levelBonus();
+        }
+
+        return base + toolLevel + enchantLevel + effectLevel + pluginLevel;
     }
 }

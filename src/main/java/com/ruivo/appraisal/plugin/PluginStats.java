@@ -13,11 +13,12 @@ public record PluginStats(
         double transfer,
         double generatorEfficiency,
         double coolantConsumption,
-        boolean voidEnabled
+        boolean voidEnabled,
+        double solarGeneration
 ) {
 
     public static final PluginStats EMPTY = new PluginStats(
-            0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D, false);
+            0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D, false, 0.0D);
 
     /**
      * 把若干插件参数加算成一台机器的合计。纯 Java，便于单元测试。
@@ -33,6 +34,7 @@ public record PluginStats(
         double generatorEfficiency = 0.0D;
         double coolant = 0.0D;
         boolean voidEnabled = false;
+        double solar = 0.0D;
 
         for (PluginSpec spec : specs) {
             level += spec.get(PluginStat.APPRAISAL_LEVEL);
@@ -45,10 +47,11 @@ public record PluginStats(
             generatorEfficiency += spec.get(PluginStat.GENERATOR_EFFICIENCY);
             coolant += spec.get(PluginStat.COOLANT_CONSUMPTION);
             voidEnabled |= spec.get(PluginStat.VOID) > 0.0D;
+            solar += spec.get(PluginStat.SOLAR_GENERATION);
         }
 
         return new PluginStats(level, speed, chance, block, energy, capacity, transfer,
-                generatorEfficiency, coolant, voidEnabled);
+                generatorEfficiency, coolant, voidEnabled, solar);
     }
 
     public int levelBonus() {
@@ -105,6 +108,7 @@ public record PluginStats(
                 || transfer != 0.0D
                 || generatorEfficiency != 0.0D
                 || coolantConsumption != 0.0D
+                || solarGeneration != 0.0D
                 || voidEnabled;
     }
 

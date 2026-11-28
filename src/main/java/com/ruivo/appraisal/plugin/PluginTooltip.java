@@ -61,6 +61,7 @@ public final class PluginTooltip {
         return switch (stat.format()) {
             case PERCENT -> String.format(Locale.ROOT, "%+.0f%%", value * 100.0D);
             case LEVEL -> String.format(Locale.ROOT, "%+d", (int) Math.round(value));
+            case FLAT -> String.format(Locale.ROOT, "%+.0f FE/t", value);
             case BOOLEAN -> "";
         };
     }

@@ -1,6 +1,7 @@
 package com.ruivo.appraisal.registry;
 
 import com.ruivo.appraisal.AppraisalMod;
+import com.ruivo.appraisal.item.ElectricScannerItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -21,6 +22,10 @@ public final class ModTabs {
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.MAGNIFYING_GLASS.get());
                         output.accept(ModItems.AMETHYST_MAGNIFYING_GLASS.get());
+                        output.accept(ModItems.ELECTRIC_SCANNER.get());
+                        ItemStack fullScanner = new ItemStack(ModItems.ELECTRIC_SCANNER.get());
+                        ElectricScannerItem.setEnergy(fullScanner, ElectricScannerItem.capacity(fullScanner));
+                        output.accept(fullScanner);
                         output.accept(ModItems.INSIGHT_ORB.get());
                         output.accept(ModItems.URANIUM_TITANIUM_THALLIUM.get());
                         output.accept(ModItems.PLUTONIUM_TITANIUM_THALLIUM.get());
@@ -36,6 +41,8 @@ public final class ModTabs {
                         output.accept(ModItems.PRODUCTIVITY_PLUGIN.get());
                         output.accept(ModItems.ENERGY_SAVING_PLUGIN.get());
                         output.accept(ModItems.CAPACITOR_PLUGIN.get());
+                        output.accept(ModItems.PHOTOVOLTAIC_PLUGIN.get());
+                        output.accept(ModItems.EFFICIENCY_PLUGIN.get());
                         output.accept(ModItems.COOLANT_PLUGIN.get());
                         output.accept(ModItems.VOID_PLUGIN.get());
                         output.accept(ModItems.STATISTICS_PLUGIN.get());

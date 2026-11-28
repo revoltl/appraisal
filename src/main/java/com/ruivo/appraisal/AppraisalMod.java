@@ -17,6 +17,7 @@ import com.ruivo.appraisal.compat.modernindustrialization.ModernIndustrializatio
 import com.ruivo.appraisal.compat.mysticalagriculture.MysticalAgricultureIntegration;
 import com.ruivo.appraisal.compat.powah.PowahIntegration;
 import com.ruivo.appraisal.compat.rftools.RFToolsIntegration;
+import com.ruivo.appraisal.item.ScannerEnergyStorage;
 import com.ruivo.appraisal.machine.AppraisalMachineBlockEntity;
 import com.ruivo.appraisal.machine.DecayGeneratorBlockEntity;
 import com.ruivo.appraisal.machine.ModelTrainerBlockEntity;
@@ -41,6 +42,8 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
@@ -59,6 +62,10 @@ public final class AppraisalMod {
         ModDataComponents.register(modBus);
         ModBlocks.register(modBus);
         ModItems.register(modBus);
+        modBus.addListener(RegisterCapabilitiesEvent.class, event ->
+                event.registerItem(Capabilities.EnergyStorage.ITEM,
+                        (stack, context) -> new ScannerEnergyStorage(stack),
+                        ModItems.ELECTRIC_SCANNER.get()));
         ModBlockEntities.register(modBus);
         ModMenus.register(modBus);
         ModRecipes.register(modBus);

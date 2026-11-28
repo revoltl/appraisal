@@ -128,12 +128,16 @@ public class ModelTrainerBlockEntity extends BlockEntity implements MenuProvider
         if (level.isClientSide) {
             return;
         }
+        if (level.hasNeighborSignal(pos)) {
+            return;
+        }
 
         PluginStats stats = pluginStats();
         energy.setCapacity((int) Math.round(
                 AppraisalConfig.MODEL_TRAINER_ENERGY_CAPACITY.get() * stats.capacityMultiplier()));
         energy.setTransferLimit((int) Math.round(
                 AppraisalConfig.MODEL_TRAINER_ENERGY_TRANSFER.get() * stats.transferMultiplier()));
+        energy.addEnergy(SolarGeneration.fePerTick(stats, level, pos));
 
         if (!training) {
             return;
@@ -656,6 +660,14 @@ public class ModelTrainerBlockEntity extends BlockEntity implements MenuProvider
             int consumed = Math.min(energy, Math.max(0, amount));
             energy -= consumed;
             return consumed;
+        }
+
+        void addEnergy(int amount) {
+            if (amount <= 0) {
+                return;
+            }
+            energy = Math.min(capacity, energy + amount);
+            setChanged();
         }
 
         @Override

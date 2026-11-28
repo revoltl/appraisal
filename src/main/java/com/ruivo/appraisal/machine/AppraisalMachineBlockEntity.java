@@ -111,6 +111,14 @@ public class AppraisalMachineBlockEntity extends BlockEntity implements MenuProv
             return consumed;
         }
 
+        void addEnergy(int amount) {
+            if (amount <= 0) {
+                return;
+            }
+            this.energy = Math.min(this.capacity, this.energy + amount);
+            setChanged();
+        }
+
         @Override
         public int receiveEnergy(int toReceive, boolean simulate) {
             int received = super.receiveEnergy(toReceive, simulate);
@@ -158,6 +166,7 @@ public class AppraisalMachineBlockEntity extends BlockEntity implements MenuProv
             energy.setCapacity(targetCapacity);
         }
         energy.setTransferLimit((int) Math.round(AppraisalConfig.MACHINE_ENERGY_TRANSFER.get() * stats.transferMultiplier()));
+        energy.addEnergy(SolarGeneration.fePerTick(stats, level, pos));
 
         ItemStack input = inventory.getStackInSlot(INPUT_SLOT);
         if (input.isEmpty()) {

@@ -77,11 +77,14 @@ public class AppraisalJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(ModItems.MAGNIFYING_GLASS.get(), AppraisalRecipeCategory.TYPE);
-        registration.addRecipeCatalyst(ModItems.AMETHYST_MAGNIFYING_GLASS.get(), AppraisalRecipeCategory.TYPE);
+        for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(ModTags.Items.APPRAISAL_TOOLS)) {
+            registration.addRecipeCatalyst(holder.value(), AppraisalRecipeCategory.TYPE);
+        }
         registration.addRecipeCatalyst(ModItems.APPRAISAL_MACHINE.get(), AppraisalRecipeCategory.TYPE);
 
         registration.addRecipeCatalyst(ModItems.APPRAISAL_MACHINE.get(), PluginJeiCategory.TYPE);
+        registration.addRecipeCatalyst(ModItems.MODEL_TRAINER.get(), PluginJeiCategory.TYPE);
+        registration.addRecipeCatalyst(ModItems.DECAY_GENERATOR.get(), PluginJeiCategory.TYPE);
         registration.addRecipeCatalyst(ModItems.NEUTRON_GUIDE_TOWER.get(), NeutronGuideRecipeCategory.TYPE);
         registration.addRecipeCatalyst(ModItems.DECAY_GENERATOR.get(), DecayGenerationRecipeCategory.TYPE);
     }

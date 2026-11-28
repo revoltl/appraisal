@@ -4,7 +4,9 @@ import com.ruivo.appraisal.AppraisalMod;
 import com.ruivo.appraisal.machine.AppraisalMachineMenu;
 import com.ruivo.appraisal.machine.BlockDataCardMenu;
 import com.ruivo.appraisal.machine.ModelTrainerMenu;
+import com.ruivo.appraisal.machine.ToolPluginMenu;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -28,6 +30,10 @@ public final class ModMenus {
     public static final Supplier<MenuType<ModelTrainerMenu>> MODEL_TRAINER =
             MENUS.register("model_trainer",
                     () -> IMenuTypeExtension.create(ModelTrainerMenu::new));
+
+    public static final Supplier<MenuType<ToolPluginMenu>> TOOL_PLUGINS =
+            MENUS.register("tool_plugins",
+                    () -> new MenuType<>(ToolPluginMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
     private ModMenus() {
     }

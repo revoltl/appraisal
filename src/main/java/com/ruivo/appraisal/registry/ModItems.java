@@ -4,6 +4,7 @@ import com.ruivo.appraisal.AppraisalMod;
 import com.ruivo.appraisal.item.AppraisalMachineItem;
 import com.ruivo.appraisal.item.BlockDataCardItem;
 import com.ruivo.appraisal.item.DecayGeneratorItem;
+import com.ruivo.appraisal.item.ElectricScannerItem;
 import com.ruivo.appraisal.item.ExperienceDataCardItem;
 import com.ruivo.appraisal.item.ModelTrainerItem;
 import com.ruivo.appraisal.item.NeutronGuideTowerItem;
@@ -34,6 +35,12 @@ public final class ModItems {
     public static final DeferredItem<MagnifyingGlassItem> AMETHYST_MAGNIFYING_GLASS = ITEMS.register(
             "amethyst_magnifying_glass",
             () -> new MagnifyingGlassItem(new Item.Properties().stacksTo(1).durability(2048), 1)
+    );
+
+    public static final DeferredItem<ElectricScannerItem> ELECTRIC_SCANNER = ITEMS.register(
+            "electric_scanner",
+            () -> new ElectricScannerItem(new Item.Properties().stacksTo(1)
+                    .component(ModDataComponents.SCANNER_ENERGY.get(), 0))
     );
 
     public static final DeferredItem<Item> INSIGHT_ORB = ITEMS.registerSimpleItem("insight_orb");
@@ -110,7 +117,16 @@ public final class ModItems {
             "capacitor_plugin", PluginSpec.builder()
                     .put(PluginStat.CAPACITY, 0.5D)
                     .put(PluginStat.TRANSFER, 0.5D)
-                    .put(PluginStat.GENERATOR_EFFICIENCY, 0.2D)
+                    .build());
+
+    public static final DeferredItem<PluginItem> PHOTOVOLTAIC_PLUGIN = registerPlugin(
+            "photovoltaic_plugin", PluginSpec.builder()
+                    .put(PluginStat.SOLAR_GENERATION, 32.0D)
+                    .build());
+
+    public static final DeferredItem<PluginItem> EFFICIENCY_PLUGIN = registerPlugin(
+            "efficiency_plugin", PluginSpec.builder()
+                    .put(PluginStat.GENERATOR_EFFICIENCY, 1.0D)
                     .build());
 
     public static final DeferredItem<PluginItem> COOLANT_PLUGIN = registerPlugin(
